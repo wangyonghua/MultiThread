@@ -1,4 +1,4 @@
-package cn.study.thread;
+package cn.study.thread.comand;
 
 public class ComandResortTest {
 	public static void main(String[] args) {
