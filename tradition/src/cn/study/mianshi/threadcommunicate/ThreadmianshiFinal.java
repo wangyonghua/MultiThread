@@ -1,4 +1,4 @@
-package cn.study.mianshi;
+package cn.study.mianshi.threadcommunicate;
 
 public class ThreadmianshiFinal {
 	public static void main(String[] args) {
