@@ -41,11 +41,10 @@ public class BufferQueueTest {
 		public void put(int c) {
 			try {
 				lock.lock();
-				if (count == array.length) {
+				while (count == array.length) {
 					try {
 						notFullCondition.await();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -53,6 +52,7 @@ public class BufferQueueTest {
 					putCount = 0;
 				array[putCount] = c;
 				count++;
+
 				System.out.println("write index:" + putCount + ",count:" + count + ",value:" + c);
 				putCount++;
 				this.notEmptyCondition.signal();
@@ -65,7 +65,7 @@ public class BufferQueueTest {
 			lock.lock();
 			int value = 0;
 			try {
-				if (count == 0) {
+				while (count == 0) {
 					try {
 						this.notEmptyCondition.await();
 					} catch (InterruptedException e) {
@@ -82,11 +82,11 @@ public class BufferQueueTest {
 				System.out.println("get index:" + takeCount + ",count:" + count + ",value:" + value);
 				takeCount++;
 				this.notFullCondition.signal();
+				return value;
 			} finally {
-				// TODO: handle finally clause
 				lock.unlock();
 			}
-			return value;
+
 		}
 	}
 
